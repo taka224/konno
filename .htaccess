@@ -1,0 +1,8 @@
+DirectoryIndex index.php index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # ルートで index.php を開いた場合は / へ（サブフォルダ設置時は index.php 内のリダイレクトが担当）
+  RewriteCond %{THE_REQUEST} \s/+index\.php[\s?] [NC]
+  RewriteRule ^index\.php$ / [R=301,L]
+</IfModule>
