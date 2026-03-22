@@ -8,9 +8,9 @@
       '<div class="goverlay"></div>' +
       '<div class="gcontainer">' +
       '<div id="glightbox-slider" class="gslider"></div>' +
-      '<button class="gclose gbtn" aria-label="閉じる" data-taborder="3">{closeSVG}</button>' +
-      '<button class="gprev gbtn" aria-label="前へ" data-taborder="2">{prevSVG}</button>' +
-      '<button class="gnext gbtn" aria-label="次へ" data-taborder="1">{nextSVG}</button>' +
+      '<button type="button" class="gclose gbtn" aria-label="閉じる" data-taborder="1">{closeSVG}</button>' +
+      '<button type="button" class="gprev gbtn" aria-label="前へ" data-taborder="2">{prevSVG}</button>' +
+      '<button type="button" class="gnext gbtn" aria-label="次へ" data-taborder="3">{nextSVG}</button>' +
       '</div></div>';
 
     GLightbox({

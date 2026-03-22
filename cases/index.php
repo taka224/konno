@@ -12,6 +12,7 @@ $head_extra = '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gli
       <h1>施工事例</h1>
 
       <div class="cases-content section-pad">
+        <div class="container">
         <div class="project-group">
             <p class="cases-notice">※各画像をクリックすると拡大します</p>
             <ul class="cases-list">
@@ -444,6 +445,7 @@ $head_extra = '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gli
               </li>
             </ul>
         </div>
+        </div>
       </div>
     </main>
 
@@ -456,9 +458,9 @@ $body_extra = '    <script src="https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dis
           \'<div class="goverlay"></div>\' +
           \'<div class="gcontainer">\' +
           \'<div id="glightbox-slider" class="gslider"></div>\' +
-          \'<button class="gclose gbtn" aria-label="閉じる" data-taborder="3">{closeSVG}</button>\' +
-          \'<button class="gprev gbtn" aria-label="前へ" data-taborder="2">{prevSVG}</button>\' +
-          \'<button class="gnext gbtn" aria-label="次へ" data-taborder="1">{nextSVG}</button>\' +
+          \'<button type="button" class="gclose gbtn" aria-label="閉じる" data-taborder="1">{closeSVG}</button>\' +
+          \'<button type="button" class="gprev gbtn" aria-label="前へ" data-taborder="2">{prevSVG}</button>\' +
+          \'<button type="button" class="gnext gbtn" aria-label="次へ" data-taborder="3">{nextSVG}</button>\' +
           \'</div></div>\';
         GLightbox({
           selector: ".project-group a[href$=\'.webp\']",
