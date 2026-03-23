@@ -282,24 +282,11 @@ header > div {
     padding: 0.35rem 0;
     width: fit-content;
     max-width: 100%;
-    transition: color 0.2s, box-shadow 0.2s;
+    transition: color 0.2s;
 
     &[aria-current="page"] {
       color: var(--green-main);
       font-weight: 700;
-    }
-
-    /* 下線は border ではなく box-shadow（角丸と干渉しない・文字幅に合わせやすい） */
-    @media (min-width: 1025px) {
-      box-shadow: 0 2px 0 0 transparent;
-
-      &:hover {
-        box-shadow: 0 2px 0 0 var(--green-main);
-      }
-
-      &[aria-current="page"]:hover {
-        box-shadow: 0 2px 0 0 transparent;
-      }
     }
   }
 
@@ -313,6 +300,66 @@ header > div {
     & img {
       display: block;
     }
+  }
+}
+
+/* PC: メニューリンクのクリック範囲をヘッダー帯の高さいっぱい（ヒーロー直上まで）に */
+@media (min-width: 1025px) {
+  header > div {
+    align-items: stretch;
+  }
+
+  header > div > a:first-of-type {
+    align-self: center;
+  }
+
+  header > div > a + nav {
+    align-items: stretch;
+  }
+
+  header > div #main-nav-menu + span {
+    align-self: center;
+  }
+
+  header > div a[href^="tel:"] {
+    align-self: center;
+  }
+
+  header > div #main-nav-menu {
+    align-items: stretch;
+    min-height: var(--header-height);
+  }
+
+  header > div #main-nav-menu li {
+    display: flex;
+    align-items: stretch;
+  }
+
+  header > div #main-nav-menu a {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    min-height: var(--header-height);
+    padding: 0 0.35rem;
+    box-sizing: border-box;
+    transition:
+      color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      text-decoration-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  header > div #main-nav-menu a:not([aria-current="page"]) {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.35em;
+  }
+
+  header > div #main-nav-menu a:not([aria-current="page"]):hover {
+    text-decoration-color: var(--green-main);
+  }
+
+  header > div #main-nav-menu a[aria-current="page"]:hover {
+    text-decoration: none;
   }
 }
 
