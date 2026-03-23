@@ -1,6 +1,7 @@
 <?php
 $base = '../';
 $current_page = 'about';
+$page_title = '会社概要 | 有限会社 紺野工務店';
 $page_description = '紺野工務店の会社概要。代表挨拶、私たちの約束、会社情報、アクセス情報をご案内します。';
 $preload_lcp_image = $base . 'images/company.webp';
 ?>
