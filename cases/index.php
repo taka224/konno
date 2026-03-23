@@ -29,7 +29,7 @@ $load_glightbox = true;
             <p class="cases-notice">※各画像をクリックすると拡大します</p>
             <ul class="cases-list">
               <li class="case-item case-card case-card-y">
-                <div class="project-images" aria-label="施工写真">
+                <div class="project-images">
                     <figure>
                       <a href="<?= $img ?>y-living_before.webp">
                         <img src="<?= $img ?>y-living_before.webp" alt="リビング施工前" width="768" height="512" loading="lazy" decoding="async" />
@@ -44,7 +44,7 @@ $load_glightbox = true;
                     </figure>
                   <p class="project-card-label">リビング 施工前後</p>
                 </div>
-                <div class="project-images" aria-label="施工写真">
+                <div class="project-images">
                     <figure>
                       <a href="<?= $img ?>y-senmen_before.webp">
                         <img src="<?= $img ?>y-senmen_before.webp" alt="洗面所施工前" width="768" height="512" loading="lazy" decoding="async" />
@@ -59,7 +59,7 @@ $load_glightbox = true;
                     </figure>
                   <p class="project-card-label">洗面所 施工前後</p>
                 </div>
-                <div class="project-images" aria-label="施工写真">
+                <div class="project-images">
                     <figure>
                       <a href="<?= $img ?>y-toilet-before.webp">
                         <img src="<?= $img ?>y-toilet-before.webp" alt="トイレ施工前" width="768" height="512" loading="lazy" decoding="async" />
