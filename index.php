@@ -13,14 +13,24 @@ if (!empty($_SERVER['REQUEST_URI'])) {
 
 $base = '';
 $current_page = 'home';
-$page_title = '有限会社 紺野工務店';
 $page_description = '紺野工務店の公式サイト。住まいのリフォーム・介護保険住宅改修工事に対応しています。';
-$head_extra = '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/css/glightbox.min.css" />' . "\n";
+$load_glightbox = true;
+$preload_lcp_image = $base . 'images/hero.webp';
 ?>
 <?php include __DIR__ . '/includes/header.php'; ?>
 
     <main id="main-content">
       <section class="hero-home">
+        <img
+          class="hero-home__media"
+          src="<?= htmlspecialchars($base) ?>images/hero.webp"
+          alt=""
+          width="1920"
+          height="1080"
+          fetchpriority="high"
+          decoding="async"
+        />
+        <div class="hero-home__overlay" aria-hidden="true"></div>
         <div class="container">
           <h2>小さな工務店の大きな約束。<br />細部へのこだわりで理想を実現。</h2>
           <p>横浜市で20年。大工の社長が直接対応する、顔の見える工務店です。</p>
@@ -35,8 +45,7 @@ $head_extra = '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gli
         </div>
       </section>
 
-      <section class="surface section-pad message-section">
-        <div class="container grid-2">
+      <section class="surface section-pad message-section container grid-2">
           <div class="message-photo" role="img" aria-label="施工現場のイメージ"></div>
           <article class="message-text">
             <h2>誠実をモットーに、地元横浜で20年。</h2>
@@ -44,11 +53,9 @@ $head_extra = '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gli
               誠実をモットーに地元で20年、社長は大工の工務店です。小さな工務店だからこそ職人の顔が見えます。お客様の声に直接耳を傾け、一棟一棟に心を込めて施工いたします。網戸の張り替えなど細かなご相談にも直接対応可能です。「こんなこと頼んでいいのかな」というお悩みも、お気軽にご連絡ください。
             </p>
           </article>
-        </div>
       </section>
 
-      <section class="cream section-pad">
-        <div class="container cases-inner">
+      <section class="cream section-pad container cases-inner">
           <h2>施工事例</h2>
           <p class="notice">※各画像をクリックすると拡大します</p>
           <ul class="cases-list grid-3">
@@ -123,7 +130,6 @@ $head_extra = '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gli
           <p class="more-link">
             <a class="btn outline btn-more" href="cases/">施工事例をもっと見る <span class="hero-btn-arrow" aria-hidden="true">→</span></a>
           </p>
-        </div>
       </section>
 
       <section class="green-cta section-pad container cta-inner">
@@ -142,7 +148,7 @@ $head_extra = '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gli
 <?php
 $glightbox_home_js = __DIR__ . '/js/glightbox-home.js';
 $glightbox_home_ver = is_file($glightbox_home_js) ? filemtime($glightbox_home_js) : time();
-$body_extra = '    <script src="https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/js/glightbox.min.js"></script>' . "\n"
-  . '    <script src="js/glightbox-home.js?v=' . (int) $glightbox_home_ver . '"></script>';
+$body_extra = '    <script defer src="https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/js/glightbox.min.js"></script>' . "\n"
+  . '    <script defer src="js/glightbox-home.js?v=' . (int) $glightbox_home_ver . '"></script>';
 ?>
 <?php include __DIR__ . '/includes/footer.php'; ?>

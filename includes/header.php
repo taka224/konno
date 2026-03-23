@@ -20,6 +20,10 @@ if (!isset($current_page)) $current_page = '';
 if (!isset($page_title)) $page_title = '有限会社 紺野工務店';
 if (!isset($page_description)) $page_description = '有限会社 紺野工務店の公式サイト。住まいのリフォーム・介護保険住宅改修工事に対応しています。';
 if (!isset($head_extra)) $head_extra = '';
+if (!isset($preload_lcp_image)) $preload_lcp_image = '';
+if (!isset($load_glightbox)) $load_glightbox = false;
+
+$glightbox_css_url = 'https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/css/glightbox.min.css';
 
 if (!isset($site_url)) {
   $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
@@ -40,12 +44,27 @@ if (isset($_SERVER['REQUEST_URI'])) {
 $is_home = ($current_page === 'home');
 $styles_css_path = __DIR__ . '/../styles.css';
 $styles_css_ver = is_file($styles_css_path) ? filemtime($styles_css_path) : time();
+$fonts_css_path = __DIR__ . '/../fonts/biz-udpgothic.css';
+$fonts_css_ver = is_file($fonts_css_path) ? filemtime($fonts_css_path) : time();
+$fonts_css_href = htmlspecialchars($base . 'fonts/biz-udpgothic.css?v=' . $fonts_css_ver);
+$styles_css_href = htmlspecialchars($base . 'styles.css?v=' . $styles_css_ver);
 ?>
 <!doctype html>
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+<?php if ($preload_lcp_image !== ''): ?>
+    <link rel="preload" as="image" href="<?= htmlspecialchars($preload_lcp_image) ?>" fetchpriority="high" />
+<?php endif; ?>
+<?php if ($load_glightbox): ?>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<?php endif; ?>
+    <link rel="preload" href="<?= $fonts_css_href ?>" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="<?= $fonts_css_href ?>" /></noscript>
+    <link rel="preload" href="<?= $styles_css_href ?>" as="style" />
+    <link rel="stylesheet" href="<?= $styles_css_href ?>" />
     <title><?= htmlspecialchars($page_title) ?></title>
     <meta name="description" content="<?= htmlspecialchars($page_description) ?>" />
     <meta property="og:type" content="website" />
@@ -60,11 +79,14 @@ $styles_css_ver = is_file($styles_css_path) ? filemtime($styles_css_path) : time
     <meta name="twitter:description" content="<?= htmlspecialchars($page_description) ?>" />
     <meta name="twitter:image" content="<?= htmlspecialchars($og_image) ?>" />
     <link rel="icon" type="image/svg+xml" href="<?= $base ?>images/favicon.svg" />
-    <link rel="stylesheet" href="<?= htmlspecialchars($base . 'styles.css?v=' . $styles_css_ver) ?>" />
+<?php if ($load_glightbox): ?>
+    <link rel="preload" href="<?= htmlspecialchars($glightbox_css_url) ?>" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="<?= htmlspecialchars($glightbox_css_url) ?>" /></noscript>
+<?php endif; ?>
 <?= $head_extra ?>
   </head>
   <body class="page-<?= $current_page ?: 'home' ?>">
-    <a href="#main-content">本文へスキップ</a>
+    <a href="#main-content" class="skip-link">本文へスキップ</a>
 
     <header>
       <div class="container">

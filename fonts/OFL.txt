@@ -1,0 +1,6 @@
+BIZ UDP Gothic
+Copyright 2022 The BIZ UDP Gothic Project Authors (https://github.com/googlefonts/biz-udpgothic)
+Licensed under the SIL Open Font License 1.1
+https://scripts.sil.org/OFL
+
+Bundled from @fontsource/biz-udpgothic (same font files as Google Fonts).

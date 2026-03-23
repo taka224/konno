@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;500;600;700&display=swap");
-
 /* CSS Reset */
 *,
 *::before,
@@ -94,7 +92,7 @@ select:focus-visible {
   --container: 1280px;
   --header-pad-x: clamp(1rem, 5vw, 2rem);
   --header-height: 80px;
-  --hero-sub-height: 280px;
+  --hero-sub-height: 200px;
   --section-pad-y: 100px;
   --section-pad-x: 80px;
 }
@@ -122,20 +120,25 @@ body > footer {
   box-sizing: border-box;
 }
 
-/* 全幅の帯＋内側は .container で本文と同じ幅に揃える */
-header {
+/* 全幅の帯＋内側は .container で本文と同じ幅に揃える（main 内の page-hero には当てない） */
+body > header {
   width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   background: var(--surface);
   border-bottom: 1px solid var(--line);
   box-sizing: border-box;
 }
 
-header > div {
+body > header > div {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  flex-wrap: wrap;
+  row-gap: 0.75rem;
+  column-gap: clamp(0.75rem, 2vw, 1.25rem);
   min-height: var(--header-height);
+  height: auto;
   padding: 0 var(--header-pad-x);
   box-sizing: border-box;
 
@@ -161,9 +164,10 @@ header > div {
   & > a + nav {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    flex-wrap: wrap;
+    gap: clamp(0.75rem, 1.5vw, 1.75rem) clamp(0.75rem, 2vw, 2rem);
     min-width: 0;
-    flex: 1;
+    flex: 1 1 auto;
     justify-content: flex-end;
     margin: 0;
   }
@@ -195,6 +199,9 @@ header > div {
     letter-spacing: 0.02em;
     border-radius: 6px;
     transition: background 0.2s;
+    flex-shrink: 1;
+    min-width: 0;
+    max-width: 100%;
 
     &:hover {
       background: var(--green-dark);
@@ -268,8 +275,10 @@ header > div {
     padding: 0;
     display: flex;
     align-items: center;
-    gap: 2rem;
+    justify-content: flex-end;
+    gap: clamp(0.75rem, 1.5vw, 2rem);
     flex-wrap: wrap;
+    row-gap: 0.35rem;
   }
 
   & nav a {
@@ -282,6 +291,7 @@ header > div {
     padding: 0.35rem 0;
     width: fit-content;
     max-width: 100%;
+    overflow-wrap: break-word;
     transition: color 0.2s;
 
     &[aria-current="page"] {
@@ -303,62 +313,75 @@ header > div {
   }
 }
 
-/* PC: メニューリンクのクリック範囲をヘッダー帯の高さいっぱい（ヒーロー直上まで）に */
+/* PC: グリッドでナビ列を minmax(0) にし、文字拡大時も折り返しやすくする */
 @media (min-width: 1025px) {
-  header > div {
+  body > header > div {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
     align-items: stretch;
+    align-content: center;
+    column-gap: clamp(0.75rem, 2vw, 1.25rem);
   }
 
-  header > div > a:first-of-type {
+  body > header > div > a:first-of-type {
+    grid-column: 1;
     align-self: center;
   }
 
-  header > div > a + nav {
+  body > header > div > a + nav {
+    grid-column: 2;
     align-items: stretch;
+    min-width: 0;
   }
 
-  header > div #main-nav-menu + span {
+  body > header > div #main-nav-menu + span {
+    align-self: stretch;
+    height: auto;
+    min-height: 1.75em;
+    max-height: none;
+  }
+
+  body > header > div a[href^="tel:"] {
     align-self: center;
   }
 
-  header > div a[href^="tel:"] {
-    align-self: center;
-  }
-
-  header > div #main-nav-menu {
+  body > header > div #main-nav-menu {
     align-items: stretch;
-    min-height: var(--header-height);
+    min-height: max(var(--header-height), 3em);
+    min-width: 0;
   }
 
-  header > div #main-nav-menu li {
+  body > header > div #main-nav-menu li {
     display: flex;
     align-items: stretch;
+    min-width: 0;
   }
 
-  header > div #main-nav-menu a {
+  body > header > div #main-nav-menu a {
     display: flex;
     align-items: center;
     align-self: stretch;
-    min-height: var(--header-height);
-    padding: 0 0.35rem;
+    min-height: max(var(--header-height), 3em);
+    height: auto;
+    padding: 0.5rem 0.35rem;
     box-sizing: border-box;
     transition:
       color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
       text-decoration-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  header > div #main-nav-menu a:not([aria-current="page"]) {
+  body > header > div #main-nav-menu a:not([aria-current="page"]) {
     text-decoration: underline;
     text-decoration-color: transparent;
     text-decoration-thickness: 2px;
     text-underline-offset: 0.35em;
   }
 
-  header > div #main-nav-menu a:not([aria-current="page"]):hover {
+  body > header > div #main-nav-menu a:not([aria-current="page"]):hover {
     text-decoration-color: var(--green-main);
   }
 
-  header > div #main-nav-menu a[aria-current="page"]:hover {
+  body > header > div #main-nav-menu a[aria-current="page"]:hover {
     text-decoration: none;
   }
 }
@@ -368,34 +391,60 @@ main {
   background: #fff;
 }
 
-main.page-about > h1:first-child,
-main.page-cases > h1:first-child,
-main.page-contact > h1:first-child {
-  min-height: 280px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 3rem clamp(1rem, 5vw, 5rem);
-  color: #fff;
-  background-size: cover;
-  background-position: center;
+/* 下層ページ ヒーロー見出し（同一グリッドセルに重ねて確実に中央配置） */
+.page-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(200px, auto);
+  width: 100%;
   margin: 0;
-  font-size: clamp(2rem, 4vw, 2.75rem);
+  padding: 0;
+  overflow: hidden;
+  isolation: isolate;
+  box-sizing: border-box;
+  background: transparent;
+  border-bottom: none;
+}
+
+.page-hero__media,
+.page-hero__overlay,
+.page-hero__title {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.page-hero__media {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+
+.page-hero__overlay {
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+  min-height: 200px;
+}
+
+.page-hero__title {
+  z-index: 2;
+  place-self: center;
+  width: min(100%, var(--container));
+  max-width: var(--container);
+  margin: 0;
+  padding: 2rem clamp(1rem, 5vw, 5rem);
+  box-sizing: border-box;
+  text-align: center;
+  color: #fff;
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700;
   letter-spacing: 0.05em;
   line-height: 1.25;
-}
-
-main.page-about > h1:first-child {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url("images/company.webp");
-}
-
-main.page-cases > h1:first-child {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url("images/cases.webp");
-}
-
-main.page-contact > h1:first-child {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url("images/contact.webp");
+  text-wrap: balance;
 }
 
 /* 送信完了ページ */
@@ -465,24 +514,32 @@ main.page-contact > h1:first-child {
   align-items: center;
   padding: 0 clamp(1rem, 6vw, 5rem);
   color: #fff;
-  background-image: url("images/hero.webp");
-  background-size: cover;
-  background-position: center;
   position: relative;
+  overflow: hidden;
+  isolation: isolate;
 
-  &::before {
-    content: "";
+  & .hero-home__media {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, #00000088 0%, #00000033 100%);
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
   }
 
-  & > * {
-    position: relative;
+  & .hero-home__overlay {
+    position: absolute;
+    inset: 0;
     z-index: 1;
+    background: linear-gradient(180deg, #00000088 0%, #00000033 100%);
+    pointer-events: none;
   }
 
-  & .container {
+  & > .container {
+    position: relative;
+    z-index: 2;
     max-width: 980px;
   }
 
@@ -698,7 +755,7 @@ address {
   gap: 4rem;
 }
 
-.message-section .grid-2 {
+.message-section.grid-2 {
   gap: 64px;
 }
 
@@ -719,7 +776,7 @@ address {
   margin: 0;
 }
 
-main.page-about > section.surface:first-of-type .container > p:nth-of-type(3),
+main.page-about > section.surface:first-of-type.container > p:nth-of-type(3),
 .message-text p {
   line-height: 2;
 }
@@ -1228,7 +1285,7 @@ main.page-contact > section.section-pad {
   padding-block: clamp(3rem, 7vw, var(--section-pad-y));
 }
 
-main.page-contact > section.section-pad > .container {
+main.page-contact > section.section-pad.container {
   padding-inline: var(--header-pad-x);
   box-sizing: border-box;
 }
@@ -1513,7 +1570,7 @@ body > footer {
     gap: 2rem;
   }
 
-  header {
+  body > header {
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -1521,12 +1578,13 @@ body > footer {
     padding-right: env(safe-area-inset-right);
   }
 
-  header > div {
+  body > header > div {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto auto;
+    /* ロゴは自然幅・電話は中央で折り返し可能（minmax(0,1fr)）・ハンバーガー固定 */
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
     column-gap: 0.5rem;
-    row-gap: 0;
+    row-gap: 0.5rem;
     padding-left: max(clamp(1rem, 5vw, 2rem), env(safe-area-inset-left));
     padding-right: max(clamp(1rem, 5vw, 2rem), env(safe-area-inset-right));
   }
@@ -1535,23 +1593,29 @@ body > footer {
    * タブレット〜中幅: 1行目を「ロゴ｜電話｜ハンバーガー」、メニューは2行目
    * （540px以下では電話を非表示・下記メディアクエリ）
    */
-  header > div > a + nav {
+  body > header > div > a + nav {
     display: contents;
   }
 
-  header > div > a:first-of-type {
+  body > header > div > a:first-of-type {
     grid-column: 1;
     grid-row: 1;
     min-width: 0;
   }
 
-  header > div a[href^="tel:"] {
+  body > header > div a[href^="tel:"] {
     grid-column: 2;
     grid-row: 1;
     justify-self: end;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+    box-sizing: border-box;
   }
 
-  header > div button[aria-controls="main-nav-menu"] {
+  body > header > div button[aria-controls="main-nav-menu"] {
     display: flex !important;
     grid-column: 3;
     grid-row: 1;
@@ -1562,30 +1626,30 @@ body > footer {
   }
 
   /* display:contents の nav に代わり、メニュー列（ul）を2行目に配置 */
-  header > div #main-nav-menu {
+  body > header > div #main-nav-menu {
     grid-column: 1 / -1;
     grid-row: 2;
     width: 100%;
     min-width: 0;
   }
 
-  header > div #main-nav-menu + span {
+  body > header > div #main-nav-menu + span {
     display: none;
   }
 
-  header > div #main-nav ul {
+  body > header > div #main-nav ul {
     flex-direction: column;
     align-items: stretch;
     gap: 0;
     width: 100%;
   }
 
-  header > div #main-nav-menu a {
+  body > header > div #main-nav-menu a {
     box-shadow: none;
     width: 100%;
   }
 
-  header > div #main-nav-menu {
+  body > header > div #main-nav-menu {
     max-height: 0;
     overflow: hidden;
     opacity: 0;
@@ -1599,8 +1663,8 @@ body > footer {
     text-align: right;
   }
 
-  header.nav-open #main-nav-menu {
-    max-height: 400px;
+  body > header.nav-open #main-nav-menu {
+    max-height: min(85vh, 720px);
     opacity: 1;
     visibility: visible;
     padding: 1rem 0;
@@ -1608,25 +1672,28 @@ body > footer {
 }
 
 @media (max-width: 768px) {
-  header > div {
+  body > header > div {
     min-height: auto;
     padding: 0.75rem clamp(0.75rem, 4vw, 1.5rem);
     column-gap: 0.5rem;
     row-gap: 0;
   }
 
-  header > div a[href^="tel:"] {
+  body > header > div a[href^="tel:"] {
     padding: 0.65rem 1rem;
     font-size: clamp(0.75rem, 3vw, 0.8125rem);
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.25;
+    max-width: 100%;
   }
 
-  header > div #main-nav-menu {
+  body > header > div #main-nav-menu {
     width: 100%;
     box-sizing: border-box;
   }
 
-  header > div #main-nav-menu a {
+  body > header > div #main-nav-menu a {
     display: block;
     width: 100%;
     padding: 1rem 0;
@@ -1637,15 +1704,15 @@ body > footer {
     font-weight: 700;
   }
 
-  header > div #main-nav-menu li {
+  body > header > div #main-nav-menu li {
     width: 100%;
   }
 
-  header > div #main-nav-menu li:last-child a {
+  body > header > div #main-nav-menu li:last-child a {
     border-bottom: 0;
   }
 
-  header.nav-open #main-nav-menu {
+  body > header.nav-open #main-nav-menu {
     max-height: 320px;
   }
 
@@ -1655,7 +1722,7 @@ body > footer {
   }
 
   /* トップ「メッセージ」: モバイルは低めの画像＋本文を縦中央オーバーレイ */
-  .message-section .grid-2 {
+  .message-section.grid-2 {
     display: block;
     position: relative;
     gap: 0;
@@ -1812,12 +1879,19 @@ body > footer {
   }
 
   /* 下層ページ ヒーロー見出し: モバイルは帯を低めに */
-  main.page-about > h1:first-child,
-  main.page-cases > h1:first-child,
-  main.page-contact > h1:first-child {
-    min-height: 180px;
-    padding: 1.35rem 1rem;
-    font-size: clamp(1.5rem, 5.5vw, 2.25rem);
+  .page-hero {
+    grid-template-rows: minmax(140px, auto);
+    min-height: 140px;
+  }
+
+  .page-hero__media,
+  .page-hero__overlay {
+    min-height: 140px;
+  }
+
+  .page-hero__title {
+    padding: 1rem 0.875rem;
+    font-size: clamp(1.35rem, 5vw, 2rem);
   }
 
   main.page-about section h2,
@@ -1877,15 +1951,15 @@ body > footer {
 
 /* 540px以下: ヘッダーの電話番号を非表示（ロゴ＋メニューのみ） */
 @media (max-width: 540px) {
-  header > div {
+  body > header > div {
     grid-template-columns: minmax(0, 1fr) auto;
   }
 
-  header > div a[href^="tel:"] {
+  body > header > div a[href^="tel:"] {
     display: none;
   }
 
-  header > div button[aria-controls="main-nav-menu"] {
+  body > header > div button[aria-controls="main-nav-menu"] {
     grid-column: 2;
   }
 }
@@ -1896,7 +1970,7 @@ body > footer {
     display: none;
   }
 
-  .message-section .grid-2 {
+  .message-section.grid-2 {
     overflow: visible;
     border-radius: 0;
   }
@@ -1944,13 +2018,13 @@ body > footer {
 }
 
 @media (max-width: 480px) {
-  header > div {
+  body > header > div {
     padding: 0.75rem 0.75rem;
   }
 
   /* height:auto だと SVG ロゴの高さが 0 になる環境があるため固定高さを維持 */
-  header > div > a img,
-  header > div > a h1 img {
+  body > header > div > a img,
+  body > header > div > a h1 img {
     max-width: min(140px, 42vw);
     height: 52px;
     width: auto;

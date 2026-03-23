@@ -1,14 +1,26 @@
 <?php
 $base = '../';
 $current_page = 'contact';
-$page_title = '送信完了 | 有限会社 紺野工務店';
 $page_description = 'お問い合わせいただきありがとうございます。内容を確認のうえ、担当者よりご連絡いたします。';
 $head_extra = '<meta name="robots" content="noindex" />' . "\n";
+$preload_lcp_image = $base . 'images/company.webp';
 ?>
 <?php include __DIR__ . '/../includes/header.php'; ?>
 
     <main id="main-content" class="page-contact page-contact-thanks">
-      <h1>送信完了</h1>
+      <header class="page-hero">
+        <img
+          class="page-hero__media"
+          src="<?= htmlspecialchars($base) ?>images/company.webp"
+          alt=""
+          width="1920"
+          height="1080"
+          fetchpriority="high"
+          decoding="async"
+        />
+        <div class="page-hero__overlay" aria-hidden="true"></div>
+        <h1 class="page-hero__title">送信完了</h1>
+      </header>
 
       <section class="surface section-pad container">
           <header class="form-head">

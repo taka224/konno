@@ -2,17 +2,28 @@
 $base = '../';
 $current_page = 'cases';
 $img = $base . 'images/cases/';
-$page_title = '施工事例 | 有限会社 紺野工務店';
 $page_description = '紺野工務店の施工事例。リビング・洗面所・トイレ・キッチン・手すり取付などのリフォーム事例を掲載しています。';
-$head_extra = '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/css/glightbox.min.css" />' . "\n";
+$preload_lcp_image = $base . 'images/company.webp';
+$load_glightbox = true;
 ?>
 <?php include __DIR__ . '/../includes/header.php'; ?>
 
     <main id="main-content" class="page-cases">
-      <h1>施工事例</h1>
+      <header class="page-hero">
+        <img
+          class="page-hero__media"
+          src="<?= htmlspecialchars($base) ?>images/company.webp"
+          alt=""
+          width="1920"
+          height="1080"
+          fetchpriority="high"
+          decoding="async"
+        />
+        <div class="page-hero__overlay" aria-hidden="true"></div>
+        <h1 class="page-hero__title">施工事例</h1>
+      </header>
 
-      <div class="cases-content section-pad">
-        <div class="container">
+      <section class="cases-content section-pad container">
         <div class="project-group">
             <p class="cases-notice">※各画像をクリックすると拡大します</p>
             <ul class="cases-list">
@@ -445,32 +456,13 @@ $head_extra = '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gli
               </li>
             </ul>
         </div>
-        </div>
-      </div>
+      </section>
     </main>
 
 <?php
-$body_extra = '    <script src="https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/js/glightbox.min.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var lightboxHtml = \'<div id="glightbox-body" class="glightbox-container" tabindex="-1" role="dialog" aria-hidden="false">\' +
-          \'<div class="gloader visible"></div>\' +
-          \'<div class="goverlay"></div>\' +
-          \'<div class="gcontainer">\' +
-          \'<div id="glightbox-slider" class="gslider"></div>\' +
-          \'<button type="button" class="gclose gbtn" aria-label="閉じる" data-taborder="1">{closeSVG}</button>\' +
-          \'<button type="button" class="gprev gbtn" aria-label="前へ" data-taborder="2">{prevSVG}</button>\' +
-          \'<button type="button" class="gnext gbtn" aria-label="次へ" data-taborder="3">{nextSVG}</button>\' +
-          \'</div></div>\';
-        GLightbox({
-          selector: ".project-group a[href$=\'.webp\']",
-          touchNavigation: true,
-          loop: true,
-          openEffect: "zoom",
-          closeEffect: "fade",
-          lightboxHTML: lightboxHtml
-        });
-      });
-    </script>';
+$glightbox_cases_js = __DIR__ . '/../js/glightbox-cases.js';
+$glightbox_cases_ver = is_file($glightbox_cases_js) ? filemtime($glightbox_cases_js) : time();
+$body_extra = '    <script defer src="https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/js/glightbox.min.js"></script>' . "\n"
+  . '    <script defer src="' . htmlspecialchars($base) . 'js/glightbox-cases.js?v=' . (int) $glightbox_cases_ver . '"></script>';
 ?>
 <?php include __DIR__ . '/../includes/footer.php'; ?>
