@@ -2,8 +2,9 @@
 $base = '../';
 $current_page = 'cases';
 $img = $base . 'images/cases/';
+$page_title = '施工事例 | 有限会社 紺野工務店';
 $page_description = '紺野工務店の施工事例。リビング・洗面所・トイレ・キッチン・手すり取付などのリフォーム事例を掲載しています。';
-$preload_lcp_image = $base . 'images/company.webp';
+$preload_lcp_image = $base . 'images/cases.webp';
 $load_glightbox = true;
 ?>
 <?php include __DIR__ . '/../includes/header.php'; ?>
@@ -12,7 +13,7 @@ $load_glightbox = true;
       <header class="page-hero">
         <img
           class="page-hero__media"
-          src="<?= htmlspecialchars($base) ?>images/company.webp"
+          src="<?= htmlspecialchars($base) ?>images/cases.webp"
           alt=""
           width="1920"
           height="1080"

@@ -1,8 +1,9 @@
 <?php
 $base = '../';
 $current_page = 'contact';
+$page_title = 'お問い合わせ | 有限会社 紺野工務店';
 $page_description = '紺野工務店へのお問い合わせ。住まいのリフォームや改修工事のご相談を受け付けています。';
-$preload_lcp_image = $base . 'images/company.webp';
+$preload_lcp_image = $base . 'images/contact.webp';
 ?>
 <?php include __DIR__ . '/../includes/header.php'; ?>
 
@@ -10,7 +11,7 @@ $preload_lcp_image = $base . 'images/company.webp';
       <header class="page-hero">
         <img
           class="page-hero__media"
-          src="<?= htmlspecialchars($base) ?>images/company.webp"
+          src="<?= htmlspecialchars($base) ?>images/contact.webp"
           alt=""
           width="1920"
           height="1080"
