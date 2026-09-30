@@ -22,6 +22,7 @@ body {
   font-family: "BIZ UDPGothic", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
   color: var(--text);
   background: #fff;
+  overflow-x: hidden;
   overflow-wrap: break-word;
 }
 
@@ -89,7 +90,7 @@ select:focus-visible {
   --radius: 12px;
   --radius-m: 8px;
   --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  --container: 1280px;
+  --container: 1440px;
   --header-pad-x: clamp(1rem, 5vw, 2rem);
   --header-height: 80px;
   --hero-sub-height: 200px;
@@ -110,6 +111,10 @@ body > a[href="#main-content"] {
   &:focus {
     top: 1rem;
   }
+}
+
+#main-content:focus {
+  outline: none;
 }
 
 .container,
@@ -177,7 +182,7 @@ body > header > div {
     order: 1;
   }
 
-  & #main-nav-menu + span {
+  & #main-nav > .main-nav-divider {
     order: 2;
     width: 1px;
     height: 28px;
@@ -334,11 +339,11 @@ body > header > div {
     min-width: 0;
   }
 
-  body > header > div #main-nav-menu + span {
-    align-self: stretch;
-    height: auto;
-    min-height: 1.75em;
-    max-height: none;
+  /* 区切り線はナビ列の全高に伸ばさず、短いまま中央に置く */
+  body > header > div #main-nav > .main-nav-divider {
+    align-self: center;
+    height: 28px;
+    min-height: 0;
   }
 
   body > header > div a[href^="tel:"] {
@@ -409,7 +414,7 @@ main {
 }
 
 .page-hero__media,
-.page-hero__overlay {
+.page-hero::before {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -423,7 +428,8 @@ main {
   z-index: 0;
 }
 
-.page-hero__overlay {
+.page-hero::before {
+  content: "";
   z-index: 1;
   background: rgba(0, 0, 0, 0.45);
   pointer-events: none;
@@ -444,6 +450,48 @@ main {
   letter-spacing: 0.05em;
   line-height: 1.25;
   text-wrap: balance;
+  text-shadow: 0 1px 3px #000, 0 2px 12px #000;
+}
+
+/* 404 ページ */
+.error-inner {
+  text-align: center;
+}
+
+.error-inner p {
+  margin: 0 0 1.5rem;
+}
+
+.error-inner .error-code {
+  margin: 0 0 0.5rem;
+  color: var(--green-main);
+  font-size: clamp(3rem, 12vw, 5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.05em;
+}
+
+.error-inner .cta-actions {
+  margin-top: clamp(2rem, 5vw, 3rem);
+}
+
+/* ホバー / フォーカスで配色を反転 */
+.error-inner .btn {
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.error-inner .btn.primary:hover,
+.error-inner .btn.primary:focus-visible {
+  background: transparent;
+  color: var(--green-main);
+  border-color: var(--green-main);
+}
+
+.error-inner .btn.outline:hover,
+.error-inner .btn.outline:focus-visible {
+  background: var(--green-main);
+  color: #fff;
+  border-color: var(--green-main);
 }
 
 /* 送信完了ページ */
@@ -547,6 +595,7 @@ main {
     font-size: clamp(2rem, 5vw, 3.25rem);
     font-weight: 700;
     line-height: 1.3;
+    text-shadow: 0 1px 3px #000, 0 2px 12px #000;
   }
 
   & p {
@@ -555,7 +604,7 @@ main {
     font-size: clamp(1rem, 2vw, 1.125rem);
     font-weight: 500;
     line-height: 1.8;
-    text-shadow: 0 1px 3px #000000, 0 3px 16px #000000;
+    text-shadow: 0 1px 3px #000, 0 2px 12px #000;
   }
 
   & .hero-actions {
@@ -756,6 +805,8 @@ address {
 
 .message-section.grid-2 {
   gap: 64px;
+  /* 写真より本文列を広く（2 列目をやや大きく） */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.28fr);
 }
 
 .message-photo {
@@ -773,11 +824,59 @@ address {
 
 .access-section {
   margin: 0;
+  min-width: 0;
 }
 
 main.page-about > section.surface:first-of-type.container > p:nth-of-type(3),
 .message-text p {
   line-height: 2;
+}
+
+/* 代表挨拶本文: 最大 16px、狭い画面ではやや小さく（署名 .ceo-sign は別指定） */
+main.page-about > section.surface:first-of-type.container > p:not(.ceo-sign) {
+  font-size: clamp(0.875rem, 0.8rem + 0.9vw, 16px);
+}
+
+/* 横は .section-pad のみ（施工事例 .cases-inner と同じコンテナ内幅に揃える。ここで padding-inline を足すと本文だけ狭くなる） */
+.message-section .message-text {
+  text-align: left;
+  padding-inline: 0;
+  box-sizing: border-box;
+  /* グリッド列が子の min-content 幅に引き伸ばされ、狭いビューで横はみ出し・見切れするのを防ぐ */
+  min-width: 0;
+}
+
+/* PC: 本文は列いっぱいに使う */
+@media (min-width: 769px) {
+  .message-section .message-text__inner {
+    display: block;
+    width: 100%;
+    font-size: clamp(1rem, 3.6vw, 2rem);
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .message-section .message-text__inner h2 {
+    font-size: 1em;
+    margin: 0 0 1.75rem;
+    width: 100%;
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .message-section .message-text__inner p {
+    font-size: clamp(0.9375rem, 1.5vw, 1rem);
+    display: block;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 768px) {
+  .message-section .message-text h2 {
+    font-size: clamp(1rem, 3.6vw, 2rem);
+  }
 }
 
 .message-text {
@@ -1331,18 +1430,28 @@ main.page-contact form > p:first-of-type {
   padding: 0.2rem 0.35rem;
 }
 
+/* グリッド列内で iframe の固定幅(HTML属性)が min-content になりはみ出すのを防ぐ */
 .map-placeholder {
   margin: 0;
-  min-height: 360px;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
   border-radius: 12px;
   overflow: hidden;
   aspect-ratio: 16 / 9;
+  min-height: 200px;
+  box-sizing: border-box;
 
   & iframe {
+    position: absolute;
+    inset: 0;
     display: block;
     width: 100%;
     height: 100%;
-    min-height: 360px;
+    max-width: 100%;
+    border: 0;
+    box-sizing: border-box;
   }
 }
 
@@ -1573,6 +1682,7 @@ body > footer {
     position: sticky;
     top: 0;
     z-index: 1000;
+    overflow: visible;
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
   }
@@ -1584,16 +1694,24 @@ body > footer {
     align-items: center;
     column-gap: 0.5rem;
     row-gap: 0.5rem;
+    position: relative;
     padding-left: max(clamp(1rem, 5vw, 2rem), env(safe-area-inset-left));
     padding-right: max(clamp(1rem, 5vw, 2rem), env(safe-area-inset-right));
   }
 
   /*
-   * タブレット〜中幅: 1行目を「ロゴ｜電話｜ハンバーガー」、メニューは2行目
-   * （540px以下では電話を非表示・下記メディアクエリ）
+   * タブレット〜中幅: nav を実レイアウトボックスにする（display:contents は Safari でキーボードフォーカスが外れやすい）
+   * 1行目: 電話｜ハンバーガー、メニューは header > div 基準で全幅に絶対配置
    */
   body > header > div > a + nav {
-    display: contents;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+    grid-column: 2 / -1;
+    grid-row: 1;
+    min-width: 0;
   }
 
   body > header > div > a:first-of-type {
@@ -1603,9 +1721,7 @@ body > footer {
   }
 
   body > header > div a[href^="tel:"] {
-    grid-column: 2;
-    grid-row: 1;
-    justify-self: end;
+    order: 1;
     max-width: 100%;
     white-space: normal;
     text-align: center;
@@ -1616,23 +1732,39 @@ body > footer {
 
   body > header > div button[aria-controls="main-nav-menu"] {
     display: flex !important;
-    grid-column: 3;
-    grid-row: 1;
-    justify-self: end;
+    order: 2;
     margin-left: 0;
-    /* グリッド右端に寄せつつ、パディング内側へ少し食い込ませて右へ */
+    /* グリッド右端に寄せつつ、パディング内側へ少し食り込ませて右へ */
     margin-right: -0.45rem;
   }
 
-  /* display:contents の nav に代わり、メニュー列（ul）を2行目に配置 */
   body > header > div #main-nav-menu {
-    grid-column: 1 / -1;
-    grid-row: 2;
+    order: 3;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
     width: 100%;
     min-width: 0;
+    max-width: none;
+    box-sizing: border-box;
+    background: var(--surface);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    /* visibility は離散値のため遅らせず、フォーカス可能タイミングをはっきりさせる */
+    transition: max-height 0.3s ease, opacity 0.2s ease;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+    align-items: stretch;
+    text-align: right;
+    z-index: 2;
   }
 
-  body > header > div #main-nav-menu + span {
+  body > header > div #main-nav > .main-nav-divider {
     display: none;
   }
 
@@ -1648,18 +1780,9 @@ body > footer {
     width: 100%;
   }
 
-  body > header > div #main-nav-menu {
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    visibility: hidden;
-    transition: max-height 0.3s ease, opacity 0.2s, visibility 0.2s;
-    flex-direction: column;
-    gap: 0;
-    padding: 0;
-    border-top: 1px solid var(--line);
-    align-items: stretch;
-    text-align: right;
+  body > header > div #main-nav-menu a:focus-visible {
+    outline: 2px solid var(--green-light);
+    outline-offset: 2px;
   }
 
   body > header.nav-open #main-nav-menu {
@@ -1667,6 +1790,8 @@ body > footer {
     opacity: 1;
     visibility: visible;
     padding: 1rem 0;
+    overflow: visible;
+    z-index: 2;
   }
 }
 
@@ -1687,15 +1812,10 @@ body > footer {
     max-width: 100%;
   }
 
-  body > header > div #main-nav-menu {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
   body > header > div #main-nav-menu a {
     display: block;
     width: 100%;
-    padding: 1rem 0;
+    padding: 1rem var(--header-pad-x);
     min-height: 48px;
     box-sizing: border-box;
     border-bottom: 1px solid var(--line);
@@ -1720,7 +1840,7 @@ body > footer {
     grid-template-columns: 1fr;
   }
 
-  /* トップ「メッセージ」: モバイルは低めの画像＋本文を縦中央オーバーレイ */
+  /* トップ「メッセージ」: モバイルは本文を画像の上に重ねる（暗いオーバーレイは付けない） */
   .message-section.grid-2 {
     display: block;
     position: relative;
@@ -1729,7 +1849,6 @@ body > footer {
     overflow: hidden;
   }
 
-  /* 背景画像エリアの高さ（本文オーバーレイの基準） */
   .message-section .message-photo {
     margin: 0;
     border-radius: 0;
@@ -1748,29 +1867,33 @@ body > footer {
     justify-content: center;
     align-items: stretch;
     gap: 0.75rem;
-    padding: 1rem 1rem;
+    padding: 1rem clamp(1.25rem, 5vw, 2.5rem);
     box-sizing: border-box;
+    text-align: center;
     width: 100%;
     min-height: 0;
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    background: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.4) 0%,
-      rgba(0, 0, 0, 0.72) 100%
-    );
+    background: none;
+
+    & .message-text__inner {
+      min-width: 0;
+      width: 100%;
+      max-width: 100%;
+    }
 
     & h2 {
       color: #fff;
       margin: 0;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.2);
+      overflow-wrap: break-word;
     }
 
     & p {
-      color: rgba(255, 255, 255, 0.96);
+      color: #fff;
       margin: 0;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 2px 6px rgba(0, 0, 0, 0.18);
     }
   }
 
@@ -1952,7 +2075,7 @@ body > footer {
     display: none;
   }
 
-  body > header > div button[aria-controls="main-nav-menu"] {
+  body > header > div > a + nav {
     grid-column: 2;
   }
 }
@@ -1972,12 +2095,12 @@ body > footer {
     position: static;
     z-index: auto;
     inset: auto;
+    display: block;
     min-height: 0;
     overflow: visible;
     -webkit-overflow-scrolling: auto;
     background: none;
-    padding: 0;
-    justify-content: flex-start;
+    padding: 0 clamp(1rem, 5vw, 2.5rem);
   }
 
   .message-section .message-text h2 {
@@ -1995,8 +2118,10 @@ body > footer {
 /* 極狭幅: メッセージの文字サイズのみ調整（レイアウトは 768px 以下と同じ） */
 @media (max-width: 393px) {
   .message-section .message-text {
-    padding: max(0.75rem, env(safe-area-inset-top, 0px)) max(0.75rem, env(safe-area-inset-right, 0px))
-      max(0.75rem, env(safe-area-inset-bottom, 0px)) max(0.75rem, env(safe-area-inset-left, 0px));
+    padding: max(0.75rem, env(safe-area-inset-top, 0px))
+      max(clamp(1rem, 5vw, 1.75rem), env(safe-area-inset-right, 0px))
+      max(0.75rem, env(safe-area-inset-bottom, 0px))
+      max(clamp(1rem, 5vw, 1.75rem), env(safe-area-inset-left, 0px));
   }
 
   .message-section .message-text h2 {
