@@ -8,7 +8,7 @@ $preload_lcp_image = $base . 'images/contact.webp';
 ?>
 <?php include __DIR__ . '/../includes/header.php'; ?>
 
-    <main id="main-content" class="page-contact page-contact-thanks">
+    <main id="main-content" class="page-contact page-contact-thanks" tabindex="-1">
       <header class="page-hero">
         <img
           class="page-hero__media"
@@ -19,7 +19,6 @@ $preload_lcp_image = $base . 'images/contact.webp';
           fetchpriority="high"
           decoding="async"
         />
-        <div class="page-hero__overlay" aria-hidden="true"></div>
         <h1 class="page-hero__title">送信完了</h1>
       </header>
 

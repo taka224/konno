@@ -19,7 +19,7 @@ $preload_lcp_image = $base . 'images/hero.webp';
 ?>
 <?php include __DIR__ . '/includes/header.php'; ?>
 
-    <main id="main-content">
+    <main id="main-content" tabindex="-1">
       <section class="hero-home">
         <img
           class="hero-home__media"
@@ -48,10 +48,12 @@ $preload_lcp_image = $base . 'images/hero.webp';
       <section class="surface section-pad message-section container grid-2">
           <div class="message-photo" role="img" aria-label="施工現場のイメージ"></div>
           <article class="message-text">
-            <h2>誠実をモットーに、地元横浜で20年。</h2>
-            <p>
-              誠実をモットーに地元で20年、社長は大工の工務店です。小さな工務店だからこそ職人の顔が見えます。お客様の声に直接耳を傾け、一棟一棟に心を込めて施工いたします。網戸の張り替えなど細かなご相談にも直接対応可能です。「こんなこと頼んでいいのかな」というお悩みも、お気軽にご連絡ください。
-            </p>
+            <div class="message-text__inner">
+              <h2>誠実をモットーに、地元横浜で20年。</h2>
+              <p>
+                誠実をモットーに地元で20年、社長は大工の工務店です。小さな工務店だからこそ職人の顔が見えます。お客様の声に直接耳を傾け、一棟一棟に心を込めて施工いたします。網戸の張り替えなど細かなご相談にも直接対応可能です。「こんなこと頼んでいいのかな」というお悩みも、お気軽にご連絡ください。
+              </p>
+            </div>
           </article>
       </section>
 

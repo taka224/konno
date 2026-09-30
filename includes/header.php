@@ -67,6 +67,7 @@ $styles_css_href = htmlspecialchars($base . 'styles.css?v=' . $styles_css_ver);
     <link rel="stylesheet" href="<?= $styles_css_href ?>" />
     <title><?= htmlspecialchars($page_title) ?></title>
     <meta name="description" content="<?= htmlspecialchars($page_description) ?>" />
+    <link rel="canonical" href="<?= htmlspecialchars($og_url) ?>" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="<?= htmlspecialchars($page_title) ?>" />
     <meta property="og:description" content="<?= htmlspecialchars($page_description) ?>" />
@@ -78,11 +79,11 @@ $styles_css_href = htmlspecialchars($base . 'styles.css?v=' . $styles_css_ver);
     <meta name="twitter:title" content="<?= htmlspecialchars($page_title) ?>" />
     <meta name="twitter:description" content="<?= htmlspecialchars($page_description) ?>" />
     <meta name="twitter:image" content="<?= htmlspecialchars($og_image) ?>" />
+    <link rel="icon" href="<?= $base ?>images/favicon.ico" sizes="32x32" />
     <link rel="icon" type="image/svg+xml" href="<?= $base ?>images/favicon.svg" />
 <?php if ($load_glightbox): ?>
-    <link rel="preload" href="<?= htmlspecialchars($glightbox_css_url) ?>" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link rel="stylesheet" href="<?= htmlspecialchars($glightbox_css_url) ?>" /></noscript>
-<?php endif; ?>
+    <link rel="stylesheet" href="/glightbox.min.css">
+    <?php endif; ?>
 <?= $head_extra ?>
   </head>
   <body class="page-<?= $current_page ?: 'home' ?>">
@@ -104,7 +105,7 @@ $styles_css_href = htmlspecialchars($base . 'styles.css?v=' . $styles_css_ver);
             <li><a href="<?= $base ?>cases/"<?= $current_page === 'cases' ? ' aria-current="page"' : '' ?>>施工事例</a></li>
             <li><a href="<?= $base ?>contact/"<?= $current_page === 'contact' ? ' aria-current="page"' : '' ?>>お問い合わせ</a></li>
           </ul>
-          <span aria-hidden="true"></span>
+          <span class="main-nav-divider" aria-hidden="true"></span>
           <a href="tel:045-622-0066" aria-label="電話でお問い合わせ 045-622-0066">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             045-622-0066

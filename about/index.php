@@ -7,7 +7,7 @@ $preload_lcp_image = $base . 'images/company.webp';
 ?>
 <?php include __DIR__ . '/../includes/header.php'; ?>
 
-    <main id="main-content" class="page-about">
+    <main id="main-content" class="page-about" tabindex="-1">
       <header class="page-hero">
         <img
           class="page-hero__media"
@@ -18,14 +18,14 @@ $preload_lcp_image = $base . 'images/company.webp';
           fetchpriority="high"
           decoding="async"
         />
-        <div class="page-hero__overlay" aria-hidden="true"></div>
         <h1 class="page-hero__title">会社概要</h1>
       </header>
 
       <section class="surface section-pad container">
           <h2>代表挨拶</h2>
-          <p>私は大工として現場で腕を磨き、この道一筋で歩んでまいりました。「小さな工務店だからこそ、お客様一人ひとりに寄り添える」——これが私たちの信念です。</p>
-          <p>大手にはできない、職人の目が隅々まで行き届く施工。社長である私自身が現場に立ち、直接お客様のお話を伺います。網戸の張り替えや、ちょっとした修繕など「こんな小さなことでも頼めるの？」というご相談も大歓迎です。</p>
+          <p>私は大工として現場で腕を磨き、この道一筋で歩んでまいりました。「小さな工務店だからこそ、お客様一人ひとりに寄り添える」。これが私たちの信念です。</p>
+          <p>大手にはできない、職人の目が隅々まで行き届く施工。社長である私自身が現場に立ち、直接お客様のお話を伺います。</p>
+          <p>網戸の張り替えや、ちょっとした修繕など「こんな小さなことでも頼めるの？」というご相談も大歓迎です。</p>
           <p>地元横浜で20年。これからもこの街と、この街に暮らす皆様の住まいを、誠実に守り続けてまいります。</p>
           <p class="ceo-sign"><strong>紺野 勝逸</strong></p>
       </section>
@@ -65,7 +65,7 @@ $preload_lcp_image = $base . 'images/company.webp';
             <h2>アクセス</h2>
             <address>
               <p>紺野工務店</p>
-              <p>〒231-0842　中区本牧間門2-17</p>
+              <p>〒231-0825　中区本牧間門2-17</p>
               <p><a href="tel:045-622-0066" aria-label="電話でお問い合わせ 045-622-0066">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                 045-622-0066
@@ -75,9 +75,6 @@ $preload_lcp_image = $base . 'images/company.webp';
           <figure class="map-placeholder">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6502.728955031594!2d139.661088!3d35.4210002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601842cd78062053%3A0x75f295d7f6d08371!2z44CSMjMxLTA4MjUg56We5aWI5bed55yM5qiq5rWc5biC5Lit5Yy65pys54mn6ZaT6ZaA77yS4oiS77yR77yX!5e0!3m2!1sja!2sjp!4v1773815931912!5m2!1sja!2sjp"
-              width="600"
-              height="450"
-              style="border:0;"
               allowfullscreen=""
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"

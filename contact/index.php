@@ -7,7 +7,7 @@ $preload_lcp_image = $base . 'images/contact.webp';
 ?>
 <?php include __DIR__ . '/../includes/header.php'; ?>
 
-    <main id="main-content" class="page-contact">
+    <main id="main-content" class="page-contact" tabindex="-1">
       <header class="page-hero">
         <img
           class="page-hero__media"
@@ -18,7 +18,6 @@ $preload_lcp_image = $base . 'images/contact.webp';
           fetchpriority="high"
           decoding="async"
         />
-        <div class="page-hero__overlay" aria-hidden="true"></div>
         <h1 class="page-hero__title">お問い合わせ</h1>
       </header>
 
@@ -75,6 +74,7 @@ $preload_lcp_image = $base . 'images/contact.webp';
                 id="message"
                 name="お問い合わせ内容"
                 rows="8"
+                autocomplete="off"
                 required
               ></textarea>
             </p>

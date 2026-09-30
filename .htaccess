@@ -1,7 +1,19 @@
 DirectoryIndex index.php index.html
 
+# 404 ページ
+# パスはドメインのルートからの絶対パス。先頭の / は必須
+# （無いと Apache がテキストメッセージとして解釈してしまう）。
+# サブディレクトリ設置時は /sub/404.php のように書き換えること。
+ErrorDocument 404 /404.php
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
+
+  # www あり → www なしへ 301（正規 URL は www なし。sitemap/canonical と統一）
+  # ロリポップで www の公開フォルダを本体と同じにした時点で有効になる
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
   # ルートで index.php を開いた場合は / へ（サブフォルダ設置時は index.php 内のリダイレクトが担当）
   RewriteCond %{THE_REQUEST} \s/+index\.php[\s?] [NC]
   RewriteRule ^index\.php$ / [R=301,L]

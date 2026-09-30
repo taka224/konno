@@ -9,7 +9,7 @@ $load_glightbox = true;
 ?>
 <?php include __DIR__ . '/../includes/header.php'; ?>
 
-    <main id="main-content" class="page-cases">
+    <main id="main-content" class="page-cases" tabindex="-1">
       <header class="page-hero">
         <img
           class="page-hero__media"
@@ -20,7 +20,6 @@ $load_glightbox = true;
           fetchpriority="high"
           decoding="async"
         />
-        <div class="page-hero__overlay" aria-hidden="true"></div>
         <h1 class="page-hero__title">施工事例</h1>
       </header>
 
@@ -80,6 +79,48 @@ $load_glightbox = true;
                     <dt>y邸 リビング・洗面所・トイレ</dt>
                     <dd>場所：y邸リビング・洗面所・トイレ</dd>
                     <dd>内容：二世帯住宅の1階（親世帯）は、お掃除のし易さを考えた設備と思い切ったモダンなクロスで一新しました。</dd>
+                  </dl>
+                </div>
+              </li>
+              <li class="case-item case-card">
+                <figure>
+                    <a href="<?= $img ?>toilet_before2.webp">
+                      <img src="<?= $img ?>toilet_before2.webp" alt="トイレ 施工前" width="768" height="1024" loading="lazy" decoding="async" />
+                      <span class="img-label before">Before</span>
+                    </a>
+                  </figure>
+                  <figure>
+                    <a href="<?= $img ?>toilet_after2.webp">
+                      <img src="<?= $img ?>toilet_after2.webp" alt="トイレ 施工後" width="768" height="1024" loading="lazy" decoding="async" />
+                      <span class="img-label after">After</span>
+                    </a>
+                  </figure>
+                <div class="case-body">
+                  <dl class="case-meta">
+                    <dt>トイレ 施工前後</dt>
+                    <dd>場所：トイレ</dd>
+                    <dd>期間：1日</dd>
+                  </dl>
+                </div>
+              </li>
+              <li class="case-item case-card">
+                <figure>
+                    <a href="<?= $img ?>door_before.webp">
+                      <img src="<?= $img ?>door_before.webp" alt="扉ステンドグラス取付 施工前" width="768" height="1024" loading="lazy" decoding="async" />
+                      <span class="img-label before">Before</span>
+                    </a>
+                  </figure>
+                  <figure>
+                    <a href="<?= $img ?>door_after.webp">
+                      <img src="<?= $img ?>door_after.webp" alt="扉ステンドグラス取付 施工後" width="768" height="1024" loading="lazy" decoding="async" />
+                      <span class="img-label after">After</span>
+                    </a>
+                  </figure>
+                <div class="case-body">
+                  <dl class="case-meta">
+                    <dt>扉ステンドグラス取付 施工前後</dt>
+                    <dd>期間：3日</dd>
+                    <dd>内容：普通の扉に穴を開けて、お客様制作のステンドグラスをいれました</dd>
                   </dl>
                 </div>
               </li>
